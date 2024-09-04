@@ -1,14 +1,14 @@
 //
-//  ContentView.swift
+//  LoginView.swift
 //  Social Media
 //
 //  Created by Helena on 02/09/24.
 //
 
 import SwiftUI
-import FirebaseAuth
 
-struct ContentView: View {
+struct LoginView: View {
+    
     @StateObject private var viewModel = AuthViewModel()
     @State private var email = ""
     @State private var password = ""
@@ -17,11 +17,11 @@ struct ContentView: View {
         if viewModel.isAuthenticated {
             MainView()
         } else {
-            signup
+            signin
         }
     }
     
-    var signup: some View {
+    var signin: some View {
         NavigationView {
             VStack{
                 Image("yourgram")
@@ -41,28 +41,24 @@ struct ContentView: View {
                     .multilineTextAlignment(.center)
                 
                 Button {
-                    viewModel.signUp(email: email, password: password)
+                    viewModel.signIn(email: email, password: password)
                 } label: {
-                    Text("Sign Up")
+                    Text("Sign In")
                 }.padding()
                     .padding([.leading, .trailing], 100)
                     .foregroundColor(.white)
                     .background(.black)
                     .cornerRadius(10)
                 
-                NavigationLink {
-                    LoginView()
-                } label: {
-                    Text("Already Have Account ?")
-                }.padding(.top, 20)
+                if let errorMessage = viewModel.errorMessage{
+                    Text(errorMessage)
+                        .padding()
+                        .foregroundColor(.red)
+                        .background(Color.red.opacity(0.6))
+                        .cornerRadius(10)
+                }
+                
             }
         }
-
     }
 }
-
-#Preview {
-    ContentView()
-}
-
-
