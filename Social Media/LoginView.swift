@@ -2,7 +2,7 @@
 //  LoginView.swift
 //  Social Media
 //
-//  Created by Helena on 02/09/24.
+//  Created by Ivan on 02/09/24.
 //
 
 import SwiftUI

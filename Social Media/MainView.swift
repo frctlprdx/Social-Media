@@ -2,7 +2,7 @@
 //  MainView.swift
 //  Social Media
 //
-//  Created by Helena on 03/09/24.
+//  Created by Ivan on 03/09/24.
 //
 
 import SwiftUI
