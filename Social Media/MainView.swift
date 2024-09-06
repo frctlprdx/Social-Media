@@ -20,16 +20,22 @@ struct MainView: View {
     }
     
     var feeds: some View {
-        VStack{
-            Button {
-                viewModel.signOut()
-            } label: {
-                Text("Try Sign Out")
+        NavigationView{
+            VStack{
+                Button {
+                    viewModel.signOut()
+                } label: {
+                    Text("Try Sign Out")
+                }
+                
+                NavigationLink{
+                    PostView()
+                }label: {
+                    Text("Go To PostView")
+                }
+
             }
         }.navigationBarBackButtonHidden(true)
+        
     }
-}
-
-#Preview {
-    MainView()
 }

@@ -33,12 +33,16 @@ struct LoginView: View {
                     .padding(.bottom, 20)
                     .textFieldStyle(.roundedBorder)
                     .multilineTextAlignment(.center)
+                    .textInputAutocapitalization(.never)
+                    .disableAutocorrection(true)
                 
                 SecureField("Password", text: $password)
                     .padding([.leading,.trailing], 30)
                     .padding(.bottom, 20)
                     .textFieldStyle(.roundedBorder)
                     .multilineTextAlignment(.center)
+                    .textInputAutocapitalization(.never)
+                    .disableAutocorrection(true)
                 
                 Button {
                     viewModel.signIn(email: email, password: password)

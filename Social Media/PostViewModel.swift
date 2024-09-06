@@ -11,100 +11,55 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class PostViewModel: ObservableObject {
-    @Published var isUploading = false
-    @Published var errorMessage: String?
+
+    var errorMessage: String = ""
+    var isUploading: Bool = false
     
-    private let db = Firestore.firestore()
-    private let storage = Storage.storage()
-    
-    func uploadPost(image: UIImage?, videoURL: URL?, caption: String){
+    func uploadPost(image: UIImage?, video: URL?, caption: String) {
         guard let userID = Auth.auth().currentUser?.uid else {
-            self.errorMessage = "User not Authenticated"
-            return
-        }
+                self.errorMessage = "User not authenticated"
+                return
+            }
         
         isUploading = true
-        let postID = UUID().uuidString
-        let timestamp = Timestamp(date: Date())
+            let postID = UUID().uuidString
+            let timestamp = Timestamp(date: Date())
         
-        if let image = image {
-            uploadImage(image: image, postID:postID , userID: userID, caption: caption, timestamp: timestamp)
-        }
-        
-        if let videoURL = videoURL {
-            uploadVideo(video: videoURL, postID: postID, userID: userID, caption: caption, timestamp: timestamp)
+        if let image = image{
+            imageToStorage(image: image, postID: postID, userID: userID, caption: caption, timestamp: timestamp)
+        } else if let video = video{
+            
+        } else {
+            self.errorMessage = "No Image or video provided"
+            self.isUploading = false
         }
     }
     
-    func uploadImage(image: UIImage, postID: String, userID: String, caption: String, timestamp: Timestamp) {
-        let imageRef = storage.reference().child("images/\(postID).jpg")
-        guard let imageData = image.jpegData(compressionQuality: 0.75) else {
-            self.errorMessage = "Failed to convert image to data"
-            self.isUploading = false
+    func imageToStorage(image: UIImage?, postID: String, userID: String, caption: String, timestamp: Timestamp){
+        let storageRef = Storage.storage().reference()
+        let imageData = image!.jpegData(compressionQuality: 0.8)
+        guard imageData != nil else{
             return
         }
-
-        imageRef.putData(imageData, metadata: nil) { [weak self] _, error in
-            if let error = error {
-                self?.errorMessage = "Image upload failed: \(error.localizedDescription)"
-                self?.isUploading = false
-                return
-            }
-
-            imageRef.downloadURL { [weak self] url, error in
-                if let error = error {
-                    self?.errorMessage = "Failed to get image URL: \(error.localizedDescription)"
-                    self?.isUploading = false
-                    return
-                }
-
-                self?.savePost(imageURL: url?.absoluteString, videoURL: nil, postID: postID, userID: userID, caption: caption, timestamp: timestamp)
-            }
-        }
-    }
-
-    
-    func uploadVideo(video: URL, postID: String, userID: String, caption: String, timestamp: Timestamp) {
-        let videoRef = storage.reference().child("videos/\(postID).mp4")
-
-        videoRef.putFile(from: video, metadata: nil) { [weak self] _, error in
-            if let error = error {
-                self?.errorMessage = "Video upload failed: \(error.localizedDescription)"
-                self?.isUploading = false
-                return
-            }
-
-            videoRef.downloadURL { [weak self] url, error in
-                if let error = error {
-                    self?.errorMessage = "Failed to get video URL: \(error.localizedDescription)"
-                    self?.isUploading = false
-                    return
-                }
-
-                self?.savePost(imageURL: nil, videoURL: url?.absoluteString, postID: postID, userID: userID, caption: caption, timestamp: timestamp)
+        let path = "Photos/\(postID).jpg"
+        let fileRef = storageRef.child(path)
+        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            if error == nil && metadata != nil {
+                self.imageToDatabase(URLimage: path, postID: postID, userID: userID, caption: caption, timestamp: timestamp)
             }
         }
     }
     
-    private func savePost(imageURL: String?, videoURL: String?, postID: String, userID: String, caption: String, timestamp: Timestamp) {
-        let postData: [String: Any] = [
-            "imageURL": imageURL ?? "",
-            "videoURL": videoURL ?? "",
+    func imageToDatabase(URLimage: String, postID: String, userID: String, caption: String, timestamp: Timestamp){
+        let db = Firestore.firestore()
+        db.collection("users").document(userID).collection("posts").document(postID).setData([
             "caption": caption,
-            "timestamp": timestamp
-        ]
-
-        db.collection("users").document(userID).collection("posts").document(postID).setData(postData) { [weak self] error in
-            if let error = error {
-                self?.errorMessage = "Error writing post to Firestore: \(error.localizedDescription)"
-            } else {
-                print("Post successfully saved!")
-            }
-            self?.isUploading = false
-        }
+            "imageURL":URLimage,
+            "timestamp": timestamp,
+            "videoURL": ""
+        ])
+        
     }
-
-
-
     
 }
+
