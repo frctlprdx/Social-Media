@@ -12,6 +12,7 @@ struct ContentView: View {
     @StateObject private var viewModel = AuthViewModel()
     @State private var email = ""
     @State private var password = ""
+    @State private var username = ""
     
     var body: some View {
         if viewModel.isAuthenticated {
@@ -27,6 +28,14 @@ struct ContentView: View {
                 Image("yourgram")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                
+                TextField("Username", text: $username)
+                    .padding([.leading,.trailing], 30)
+                    .padding(.bottom, 20)
+                    .textFieldStyle(.roundedBorder)
+                    .multilineTextAlignment(.center)
+                    .textInputAutocapitalization(.never)
+                    .disableAutocorrection(true)
                 
                 TextField("Email", text: $email)
                     .padding([.leading,.trailing], 30)
@@ -45,7 +54,7 @@ struct ContentView: View {
                     .disableAutocorrection(true)
                 
                 Button {
-                    viewModel.signUp(email: email, password: password)
+                    viewModel.signUp(email: email,username: username, password: password)
                 } label: {
                     Text("Sign Up")
                 }.padding()

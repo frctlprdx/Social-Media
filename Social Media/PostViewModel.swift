@@ -50,14 +50,33 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func imageToDatabase(URLimage: String, postID: String, userID: String, caption: String, timestamp: Timestamp){
+    func imageToDatabase(URLimage: String, postID: String, userID: String, caption: String, timestamp: Timestamp) {
         let db = Firestore.firestore()
-        db.collection("users").document(userID).collection("posts").document(postID).setData([
-            "caption": caption,
-            "imageURL":URLimage,
-            "timestamp": timestamp,
-            "videoURL": ""
-        ])
+        let userRef = db.collection("users").document(userID)
+        userRef.getDocument { (document, error) in
+                if let error = error {
+                    print("Error getting document: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let document = document, document.exists else {
+                    print("Document does not exist")
+                    return
+                }
+                
+                // Mengambil data dari dokumen
+                if let data = document.data(), let username = data["username"] as? String {
+                    db.collection("posts").document(postID).setData([
+                        "username": username,
+                        "caption": caption,
+                        "imageURL":URLimage,
+                        "timestamp": timestamp,
+                        "videoURL": ""
+                    ])
+                } else {
+                    print("Username not found")
+                }
+            }
         
     }
     

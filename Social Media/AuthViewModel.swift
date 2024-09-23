@@ -6,6 +6,7 @@
 //
 
 import FirebaseAuth
+import FirebaseFirestore
 
 class AuthViewModel: ObservableObject {
     
@@ -16,20 +17,33 @@ class AuthViewModel: ObservableObject {
         self.isAuthenticated = Auth.auth().currentUser != nil
     }
     
-    func signUp(email: String, password: String){
+    func signUp(email: String, username: String, password: String){
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 self.errorMessage = error.localizedDescription
                 self.isAuthenticated = false
             } else {
                 self.isAuthenticated = true
+                self.saveUsername(username: username, email: email)
             }
         }
     }
     
+    func saveUsername(username: String, email: String){
+        guard let userID = Auth.auth().currentUser?.uid else {
+                self.errorMessage = "User not authenticated"
+                return
+            }
+        let db = Firestore.firestore()
+        db.collection("users").document(userID).setData([
+            "username": username,
+            "email": email
+        ])
+    }
+    
     func signIn(email: String, password: String){
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-          guard let strongSelf = self else { return }
+            guard self != nil else { return }
             if let error = error {
                 self?.errorMessage = error.localizedDescription
                 self?.isAuthenticated = false
