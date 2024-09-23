@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C57D5FA2CA13181007DC850 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57D5F92CA13181007DC850 /* ProfileView.swift */; };
 		791B6F3A2C859D49007B10D7 /* Social_MediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B6F392C859D49007B10D7 /* Social_MediaApp.swift */; };
 		791B6F3C2C859D49007B10D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B6F3B2C859D49007B10D7 /* ContentView.swift */; };
 		791B6F3E2C859D4B007B10D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791B6F3D2C859D4B007B10D7 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C57D5F92CA13181007DC850 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		791B6F362C859D49007B10D7 /* Social Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Social Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		791B6F392C859D49007B10D7 /* Social_MediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social_MediaApp.swift; sourceTree = "<group>"; };
 		791B6F3B2C859D49007B10D7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				791B6F392C859D49007B10D7 /* Social_MediaApp.swift */,
 				791B6F3B2C859D49007B10D7 /* ContentView.swift */,
 				79262D472C8688BE00E19C82 /* MainView.swift */,
+				0C57D5F92CA13181007DC850 /* ProfileView.swift */,
 				79262D412C85DD0600E19C82 /* AuthViewModel.swift */,
 				79D46DE92C883DF4003F1CF8 /* PostViewModel.swift */,
 				79B3154A2C8AABF6002C9462 /* PickImage.swift */,
@@ -182,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79F27D742C89CF9A00D1AA65 /* PostView.swift in Sources */,
+				0C57D5FA2CA13181007DC850 /* ProfileView.swift in Sources */,
 				79D46DEA2C883DF4003F1CF8 /* PostViewModel.swift in Sources */,
 				79262D482C8688BE00E19C82 /* MainView.swift in Sources */,
 				791B6F3C2C859D49007B10D7 /* ContentView.swift in Sources */,

@@ -22,20 +22,99 @@ struct MainView: View {
     var feeds: some View {
         NavigationView{
             VStack{
-                Button {
-                    viewModel.signOut()
-                } label: {
-                    Text("Try Sign Out")
+                //menu atas
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "exclamationmark.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.black)
+                            .padding(5)
+                    }
+
+                    Spacer()
+                    
+                    Text("YourGram")
+                        .font(.title)
+                        .bold()
+                    Spacer()
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "paperplane")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.black)
+                            .padding(5)
+                    }
+
+                    
+                }
+                .padding()
+                .background(Color.white)
+                .shadow(color: .gray, radius: 1, x: 0, y: 1)
+                
+                Spacer()
+                
+                HStack{
+                    //scrollview
+                    
                 }
                 
-                NavigationLink{
-                    PostView()
-                }label: {
-                    Text("Go To PostView")
-                }
-
+                HStack {
+                    
+                    Spacer()
+                    
+                    NavigationLink {
+                        
+                    } label: {
+                        Image(systemName: "house")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.black)
+                            .padding(5)
+                    }
+                    
+                    Spacer()
+                    
+                    NavigationLink {
+                        
+                    } label: {
+                        Image(systemName: "plus.app")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.black)
+                            .padding(5)
+                    }
+                    
+                    Spacer()
+                    
+                    NavigationLink {
+                        
+                    } label: {
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.black)
+                            .padding(5)
+                    }
+                    
+                    Spacer()
+                    
+                }.padding()
+                    .background(Color.white)
+                    .shadow(color: .gray, radius: 2, x: 0, y: -1)
+                
             }
         }.navigationBarBackButtonHidden(true)
         
     }
 }
+
+#Preview {
+    MainView()
+}
+
