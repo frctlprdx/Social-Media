@@ -65,11 +65,9 @@ struct MainView: View {
                 }
                 
                 HStack {
-                    
                     Spacer()
-                    
                     NavigationLink {
-                        
+                        MainView()
                     } label: {
                         Image(systemName: "house")
                             .resizable()
@@ -81,7 +79,7 @@ struct MainView: View {
                     Spacer()
                     
                     NavigationLink {
-                        
+                        PostView()
                     } label: {
                         Image(systemName: "plus.app")
                             .resizable()
@@ -93,7 +91,7 @@ struct MainView: View {
                     Spacer()
                     
                     NavigationLink {
-                        
+                        ProfileView()
                     } label: {
                         Image(systemName: "person.crop.circle")
                             .resizable()
