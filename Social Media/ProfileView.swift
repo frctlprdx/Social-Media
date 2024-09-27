@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject private var viewModel = AuthViewModel()
+    @StateObject private var viewModel = AuthViewController()
     var body: some View {
         NavigationView{
             VStack(alignment: .leading) {
@@ -102,7 +102,7 @@ struct ProfileView: View {
                     Spacer()
                     
                     NavigationLink {
-                        ProfileView()
+                        
                     } label: {
                         Image(systemName: "person.crop.circle")
                             .resizable()

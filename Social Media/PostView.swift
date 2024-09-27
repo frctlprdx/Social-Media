@@ -15,7 +15,7 @@ struct PostView: View {
     @State private var isPickerPresented = false
     @State private var selectedItem: PhotosPickerItem? = nil
     
-    @ObservedObject var postViewModel = PostViewModel()
+    @ObservedObject var postViewModel = PostViewController()
     
     var body: some View {
         VStack {

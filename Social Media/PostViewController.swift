@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 
-class PostViewModel: ObservableObject {
+class PostViewController: ObservableObject {
 
     var errorMessage: String = ""
     var isUploading: Bool = false

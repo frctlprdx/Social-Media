@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject private var viewModel = AuthViewModel()
+    @StateObject private var viewModel = AuthViewController()
     var body: some View {
         Group{
             if viewModel.isAuthenticated {
@@ -67,7 +67,7 @@ struct MainView: View {
                 HStack {
                     Spacer()
                     NavigationLink {
-                        MainView()
+                        
                     } label: {
                         Image(systemName: "house")
                             .resizable()

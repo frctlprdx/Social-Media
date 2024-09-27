@@ -8,7 +8,7 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-class AuthViewModel: ObservableObject {
+class AuthViewController: ObservableObject {
     
     @Published var errorMessage: String? = nil
     @Published var isAuthenticated: Bool = false
