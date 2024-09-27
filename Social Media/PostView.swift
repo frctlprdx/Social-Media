@@ -15,7 +15,7 @@ struct PostView: View {
     @State private var isPickerPresented = false
     @State private var selectedItem: PhotosPickerItem? = nil
     
-    @ObservedObject var postViewModel = PostViewController()
+    @ObservedObject var postViewController = PostViewController()
     
     var body: some View {
         VStack {
@@ -49,9 +49,9 @@ struct PostView: View {
             
             Button(action: {
                 if let selectedImage = selectedImage {
-                    postViewModel.uploadPost(image: selectedImage, video: nil, caption: caption)
+                    postViewController.uploadPost(image: selectedImage, video: nil, caption: caption)
                 } else if let selectedVideo = selectedVideo {
-                    postViewModel.uploadPost(image: nil, video: selectedVideo, caption: caption)
+                    postViewController.uploadPost(image: nil, video: selectedVideo, caption: caption)
                 } else {
                     Text("Pick Some Image/Videos")
                 }

@@ -25,9 +25,9 @@ class PostViewController: ObservableObject {
             let postID = UUID().uuidString
             let timestamp = Timestamp(date: Date())
         
-        if let image = image{
+        if image != nil{
             imageToStorage(image: image, postID: postID, userID: userID, caption: caption, timestamp: timestamp)
-        } else if let video = video{
+        } else if video != nil{
             
         } else {
             self.errorMessage = "No Image or video provided"
@@ -43,7 +43,7 @@ class PostViewController: ObservableObject {
         }
         let path = "Photos/\(postID).jpg"
         let fileRef = storageRef.child(path)
-        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+        _ = fileRef.putData(imageData!, metadata: nil) { metadata, error in
             if error == nil && metadata != nil {
                 self.imageToDatabase(URLimage: path, postID: postID, userID: userID, caption: caption, timestamp: timestamp)
             }
