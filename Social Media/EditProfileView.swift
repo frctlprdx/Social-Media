@@ -35,10 +35,18 @@ struct EditProfileView: View {
                 
                 TextField("Change Username", text: $changedUsername)
                     .padding([.top, .horizontal])
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
                 
-                TextField("Change Profile Name",text: $profileName).padding([.top, .horizontal])
+                TextField("Change Profile Name",text: $profileName)
+                    .padding([.top, .horizontal])
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
                 
-                TextField("Change Bio", text: $bio).padding([.top, .horizontal])
+                TextField("Change Bio", text: $bio)
+                    .padding([.top, .horizontal])
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
             }
             
             Spacer()
@@ -46,6 +54,8 @@ struct EditProfileView: View {
             Button {
                 if let selectedImage = selectedImage{
                     editProfileViewController.getData(image: selectedImage, username: changedUsername, bio: bio, profilename: profileName)
+                } else if selectedImage == nil {
+                    editProfileViewController.getData(image: nil, username: changedUsername, bio: bio, profilename: profileName)
                 }
             } label: {
                 Text("Save Profile")

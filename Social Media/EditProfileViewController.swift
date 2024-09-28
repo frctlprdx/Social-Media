@@ -12,9 +12,11 @@ import FirebaseStorage
 class EditProfileViewController: ObservableObject {
     
     func getData(image: UIImage?, username: String, bio: String, profilename: String){
-        let imageID = UUID().uuidString
         if image != nil {
+            let imageID = UUID().uuidString
             saveImage(imageID: imageID, image: image, username: username, bio: bio, profilename: profilename)
+        } else if image == nil {
+            editProfile(imageID: nil, username: username, bio: bio, profilename: profilename)
         }
     }
     
@@ -34,7 +36,7 @@ class EditProfileViewController: ObservableObject {
         
     }
     
-    func editProfile(imageID: String, username: String, bio: String, profilename:String) {
+    func editProfile(imageID: String?, username: String, bio: String, profilename:String) {
         guard let UserID = Auth.auth().currentUser?.uid else {
             return
         }
@@ -45,7 +47,7 @@ class EditProfileViewController: ObservableObject {
             "username": username,
             "profilename": profilename,
             "bio": bio,
-            "imageid": imageID
+            "imageid": imageID ?? ""
         ]) { error in
             if let error = error {
                 print("Error updating document: \(error)")

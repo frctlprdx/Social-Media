@@ -56,7 +56,7 @@ struct ProfileView: View {
                 HStack{
                     Spacer()
                     NavigationLink {
-                        
+                        EditProfileView()
                     } label: {
                         Text("Edit Profile")
                             .frame(maxWidth: 250)
